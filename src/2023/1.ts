@@ -1,5 +1,4 @@
-import * as io from './support/io';
-import { writeLine } from './support/io';
+import { readMultilineInput, writeLine } from './support/io';
 
 const NUMBER_WORDS_TO_DIGITS_MAP: Record<string, number> = {
   one: 1,
@@ -35,7 +34,7 @@ const extractDigits = (input: string): number[] => {
 };
 
 (async () => {
-  const firstInput = await io.readMultilineInput('Paste first input:');
+  const firstInput = await readMultilineInput('Paste first input:');
 
   const calibrationValues = firstInput.split('\n').map((data) => {
     const digits = extractDigits(data);

@@ -5,8 +5,7 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "lint": "eslint \"*/**/*.{js,ts,tsx}\" --max-warnings=0",
-    "format": "prettier \"**/*.{js,ts,tsx,json}\" --write",
-    "run": "tsx src/2023/1.ts"
+    "format": "prettier \"**/*.{js,ts,tsx,json}\" --write"
   },
   "author": "Piotr Rzeczkowski",
   "license": "proprietary",
