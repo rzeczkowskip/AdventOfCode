@@ -26,6 +26,7 @@ module.exports = {
       },
     ],
     'no-console': 0,
+    'no-continue': 0,
     '@typescript-eslint/ban-ts-comment': 0,
     'class-methods-use-this': 0,
   },
