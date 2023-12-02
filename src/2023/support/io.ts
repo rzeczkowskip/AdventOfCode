@@ -1,6 +1,6 @@
 import readline from 'readline';
 
-export const writeLine = (...lines: string[]): void =>
+const writeLine = (...lines: string[]): void =>
   lines.forEach((line) => console.log(line));
 
 const getIo = () =>
@@ -9,7 +9,7 @@ const getIo = () =>
     output: process.stdout,
   });
 
-export const readMultilineInput = async (prompt: string): Promise<string> => {
+const readMultilineInput = async (prompt: string): Promise<string> => {
   writeLine(prompt);
 
   const io = getIo();
@@ -25,4 +25,14 @@ export const readMultilineInput = async (prompt: string): Promise<string> => {
       input.push(line);
     });
   });
+};
+
+// eslint-disable-next-line import/prefer-default-export
+export const withReadInput = async (
+  callback: (input: string) => Promise<string | string[]>,
+) => {
+  const input = await readMultilineInput('Provide input:');
+  const result = await callback(input);
+
+  writeLine(...(Array.isArray(result) ? result : [result]));
 };

@@ -1,4 +1,5 @@
-import { readMultilineInput, writeLine } from './support/io';
+import { sumArrayValues } from './support/array';
+import { withReadInput } from './support/io';
 
 const NUMBER_WORDS_TO_DIGITS_MAP: Record<string, number> = {
   one: 1,
@@ -33,10 +34,8 @@ const extractDigits = (input: string): number[] => {
   return digits;
 };
 
-(async () => {
-  const firstInput = await readMultilineInput('Paste first input:');
-
-  const calibrationValues = firstInput.split('\n').map((data) => {
+withReadInput(async (input) => {
+  const calibrationValues = input.split('\n').map((data) => {
     const digits = extractDigits(data);
 
     if (digits.length === 0) {
@@ -46,7 +45,5 @@ const extractDigits = (input: string): number[] => {
     return Number.parseInt(`${digits[0]}${digits[digits.length - 1]}`, 10);
   });
 
-  const sum = calibrationValues.reduce((prev, curr) => prev + curr, 0);
-
-  writeLine('The first answer is: ', sum.toString());
-})();
+  return sumArrayValues(calibrationValues).toString();
+});
