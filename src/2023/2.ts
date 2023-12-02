@@ -1,22 +1,39 @@
 // import { writeLine } from './support/io';
-import { sumArrayValues } from './support/array';
+import { multiplyArrayValues, sumArrayValues } from './support/array';
 import { withReadInput } from './support/io';
 
 type GameSet = Record<string, number>;
 type Game = GameSet[];
 
-const EXPECTED_MAX: GameSet = {
-  red: 12,
-  green: 13,
-  blue: 14,
-};
+// const EXPECTED_MAX: GameSet = {
+//   red: 12,
+//   green: 13,
+//   blue: 14,
+// };
+//
+// const isGamePossible = (game: Game, maxDrawnTypes: GameSet): boolean =>
+//   game.every((set) =>
+//     Object.entries(set).every(
+//       ([type, count]) => type in maxDrawnTypes && count <= maxDrawnTypes[type],
+//     ),
+//   );
 
-const isGamePossible = (game: Game, maxDrawnTypes: GameSet): boolean =>
-  game.every((set) =>
-    Object.entries(set).every(
-      ([type, count]) => type in maxDrawnTypes && count <= maxDrawnTypes[type],
-    ),
-  );
+const extractExpectedMinimumRequiredTypes = (game: Game) => {
+  const requiredByType: GameSet = {};
+  game.forEach((set) => {
+    Object.entries(set).forEach(([type, count]) => {
+      if (!(type in requiredByType)) {
+        requiredByType[type] = 0;
+      }
+
+      if (requiredByType[type] < count) {
+        requiredByType[type] = count;
+      }
+    });
+  });
+
+  return requiredByType;
+};
 
 withReadInput(async (input) => {
   const gameStrings = input
@@ -45,12 +62,18 @@ withReadInput(async (input) => {
     games.push(game);
   });
 
-  const possibleGames: number[] = [];
-  games.forEach((game, i) => {
-    if (isGamePossible(game, EXPECTED_MAX)) {
-      possibleGames.push(i + 1);
-    }
-  });
+  // const possibleGames: number[] = [];
+  // games.forEach((game, i) => {
+  //   if (isGamePossible(game, EXPECTED_MAX)) {
+  //     possibleGames.push(i + 1);
+  //   }
+  // });
+  //
+  // return sumArrayValues(possibleGames).toString();
 
-  return sumArrayValues(possibleGames).toString();
+  const powers = games.map((game) =>
+    Object.values(extractExpectedMinimumRequiredTypes(game)),
+  );
+
+  return sumArrayValues(powers.map(multiplyArrayValues)).toString();
 });
