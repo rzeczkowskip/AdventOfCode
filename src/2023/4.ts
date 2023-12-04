@@ -2,6 +2,8 @@ import { sumArrayValues } from './support/array';
 import { withReadInput } from './support/io';
 
 withReadInput(async (input) => {
+  const cardCopiesCount: Record<number, number> = {};
+
   const lines = input
     .replace(/ +/g, ' ')
     .split('\n')
@@ -16,11 +18,17 @@ withReadInput(async (input) => {
           .map((value) => Number.parseInt(value.trim(), 10)),
       );
 
+      cardCopiesCount[cardNumber] = 1;
       return { cardNumber, winningNumbers, drawnNumbers };
     });
 
-  const numberHits = lines.map((line) => {
+  lines.forEach((line) => {
     let hits = 0;
+    const copies = cardCopiesCount[line.cardNumber] || 0;
+
+    if (copies === 0) {
+      return;
+    }
 
     line.drawnNumbers.forEach((number) => {
       if (line.winningNumbers.includes(number)) {
@@ -28,10 +36,10 @@ withReadInput(async (input) => {
       }
     });
 
-    return hits;
+    for (let i = line.cardNumber + 1; i <= line.cardNumber + hits; i += 1) {
+      cardCopiesCount[i] += copies;
+    }
   });
 
-  return sumArrayValues(
-    numberHits.map((hits) => (hits === 0 ? 0 : 2 ** (hits - 1))),
-  ).toString();
+  return sumArrayValues(Object.values(cardCopiesCount)).toString();
 });
