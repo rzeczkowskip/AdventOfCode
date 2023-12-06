@@ -32,7 +32,13 @@ export const withReadInput = async (
   callback: (input: string) => Promise<string | string[]>,
 ) => {
   const input = await readMultilineInput('Provide input:');
-  const result = await callback(input);
 
-  writeLine(...(Array.isArray(result) ? result : [result]));
+  const start = Date.now();
+  const result = await callback(input.trim());
+  const end = Date.now();
+
+  writeLine(
+    ...(Array.isArray(result) ? result : [result]),
+    `Solution time: ${end - start}ms`,
+  );
 };
