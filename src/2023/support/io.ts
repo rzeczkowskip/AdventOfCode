@@ -17,7 +17,7 @@ const readMultilineInput = async (prompt: string): Promise<string> => {
     const input: string[] = [];
 
     io.on('line', (line) => {
-      if (line === '') {
+      if (line === 'END;') {
         io.close();
         resolve(input.join('\n'));
       }
