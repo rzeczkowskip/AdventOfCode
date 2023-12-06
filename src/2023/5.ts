@@ -1,7 +1,6 @@
 import { splitToChunks } from './support/array';
 import { withReadInput } from './support/io';
-
-const strToInt = (value: string) => Number.parseInt(value.trim(), 10);
+import { strToInt } from './support/number';
 
 // type Map = {
 //   source: string;
