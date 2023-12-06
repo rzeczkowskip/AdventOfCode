@@ -1,19 +1,16 @@
 import { multiplyArrayValues } from './support/array';
 import { withReadInput } from './support/io';
 import { strToInt } from './support/number';
-//
-// const input = `Time:      7  15   30
-// Distance:  9  40  200`;
 
 type Record = { time: number; distance: number };
 
 withReadInput(async (input) => {
   const [times, distances] = input
     .trim()
-    .replace(/ +/g, ' ')
+    .replace(/ +/g, '')
     .split('\n')
     .map((line) => {
-      const [, ...values] = line.split(' ');
+      const [, ...values] = line.split(':');
       return values.map(strToInt);
     });
 
