@@ -1,5 +1,5 @@
 import { sumArrayValues } from './support/array';
-import { withReadInput } from './support/io';
+import { withInput } from './support/io';
 
 const NUMBER_WORDS_TO_DIGITS_MAP: Record<string, number> = {
   one: 1,
@@ -34,7 +34,7 @@ const extractDigits = (input: string): number[] => {
   return digits;
 };
 
-withReadInput(async (input) => {
+withInput(async (input) => {
   const calibrationValues = input.split('\n').map((data) => {
     const digits = extractDigits(data);
 

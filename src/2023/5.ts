@@ -1,5 +1,5 @@
 import { splitToChunks } from './support/array';
-import { withReadInput } from './support/io';
+import { withInput } from './support/io';
 import { strToInt } from './support/number';
 
 // type Map = {
@@ -200,7 +200,7 @@ const mapRanges = (maps: MapValues[], ranges: Range[]) => {
   return [...mappedRanges, ...updatedRanges];
 };
 
-withReadInput(async (input) => {
+withInput(async (input) => {
   const [seedsString, ...mapStrings] = input.split('\n\n');
 
   const seedRanges: Range[] = splitToChunks(

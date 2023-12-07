@@ -1,7 +1,7 @@
 import { sumArrayValues } from './support/array';
-import { withReadInput } from './support/io';
+import { withInput } from './support/io';
 
-withReadInput(async (input) => {
+withInput(async (input) => {
   const cardCopiesCount: Record<number, number> = {};
 
   const lines = input

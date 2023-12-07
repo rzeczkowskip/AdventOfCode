@@ -1,7 +1,7 @@
 import { multiplyArrayValues, sumArrayValues } from './support/array';
-import { withReadInput } from './support/io';
+import { withInput } from './support/io';
 
-withReadInput(async (input) => {
+withInput(async (input) => {
   const lines = input.split('\n').map((line) => line.trim());
 
   // { [line number]: position in line[] }

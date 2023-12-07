@@ -1,10 +1,10 @@
 import { multiplyArrayValues } from './support/array';
-import { withReadInput } from './support/io';
+import { withInput } from './support/io';
 import { strToInt } from './support/number';
 
 type Record = { time: number; distance: number };
 
-withReadInput(async (input) => {
+withInput(async (input) => {
   const [times, distances] = input
     .trim()
     .replace(/ +/g, '')

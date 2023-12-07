@@ -28,10 +28,16 @@ const readMultilineInput = async (prompt: string): Promise<string> => {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export const withReadInput = async (
+export const withInput = async (
   callback: (input: string) => Promise<string | string[]>,
+  demoInput?: string,
 ) => {
-  const input = await readMultilineInput('Provide input:');
+  const useDemoInput =
+    process.env?.DEMO === '1' && typeof demoInput === 'string';
+
+  const input = useDemoInput
+    ? demoInput
+    : await readMultilineInput('Provide input:');
 
   const start = Date.now();
   const result = await callback(input.trim());

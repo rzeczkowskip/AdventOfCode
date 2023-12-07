@@ -1,6 +1,6 @@
 // import { writeLine } from './support/io';
 import { multiplyArrayValues, sumArrayValues } from './support/array';
-import { withReadInput } from './support/io';
+import { withInput } from './support/io';
 
 type GameSet = Record<string, number>;
 type Game = GameSet[];
@@ -35,7 +35,7 @@ const extractExpectedMinimumRequiredTypes = (game: Game) => {
   return requiredByType;
 };
 
-withReadInput(async (input) => {
+withInput(async (input) => {
   const gameStrings = input
     .replace(/(?:^Game [0-9]+: |([,;]) )/gm, '$1')
     .split('\n')
