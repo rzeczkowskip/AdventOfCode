@@ -35,7 +35,13 @@ const computeHand = (hand: string): HandType => {
     countPerCard[card] += 1;
   });
 
+  const jokersCount = countPerCard?.J || 0;
+  delete countPerCard?.J;
+
   const cardsCount = Object.values(countPerCard);
+  cardsCount.sort((a, b) => b - a);
+  cardsCount[0] += jokersCount;
+
   const differentCardsCount = cardsCount.length;
 
   if (differentCardsCount === 1) {
@@ -62,7 +68,7 @@ const tranformCardToNumber = (card: string) => {
     case 'Q':
       return 80;
     case 'J':
-      return 70;
+      return 1;
     case 'T':
       return 60;
     default:
